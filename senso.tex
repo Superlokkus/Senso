@@ -1,0 +1,1067 @@
+\documentclass[a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{pdfpages}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{ulem}
+\usepackage{hyperref}
+\usepackage{pgf,tikz}
+
+\title{Angewandte Sensorik}
+\date{Wintersemester 2014/2015}
+\author{Markus Klemm.net}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\begin{itemize}
+\item Eingabegeräte: Alle Geräte, über die einem Computer Informationen zugeführt werden.
+    \begin{itemize}
+    \item Umweltsensoren: Führen die Information über die Umwelt unmittelbar dem Computer zu
+        \begin{itemize}
+        \item Temperatur,Druck,Schall, Feldstärke \dots
+        \end{itemize}
+    \item User Interface Devices: Informationseingabe durch Benutzer
+    \end{itemize}
+\end{itemize}
+
+\section{Ziele des Kurses}
+\paragraph{Sensorik} (Sensortechnik): Teilgebiet der Messtechnik das sich mit der Entwicklung und Einsatz von Sensoren befasst. [Brockhaus]
+\begin{itemize}
+\item wichtigste physikalischen Prinzipien zur Erfassung nichtelektrischer Messgrößen
+\item Funktionsweise ausgewählter Sensoren
+\item Vor- und Nachteile jedes Typs
+\item Anwendungshinweise für den zuverlässigen Sensorbetrieb
+\item Grundlagen der Messtechnik
+\item Einführung in die Sensorik
+\item Temperatursensoren
+\item Drucksensoren
+\item Durchflusssensoren
+\item Binäre Positionssensoren
+\item Bonus: Tastaturen und Zeigergeräte
+\end{itemize}
+\subparagraph{Literatur (OPAL)}
+[Hess09] S. Hesse, G. Schnell, Sensoren für die Prozess- und Fabrikautomation, Vieweg-Teubner (2009)
+[Reif12] K. Reif, Sensoren im Kraftfahrzeug, Springer (2012)
+
+\subsection{Messen}
+\paragraph{Quantitativ} das, was sich durch Zahlen ausdrücken lässt
+\paragraph{Messtechnik} experimentelle Bestimmung quantitativ erfassbarer Information über die Umwelt
+\paragraph{Messen} Ermitteln eines Wertes durch quantitativen Vergleich der Messröße mit einer Maßeinheit [nach DIN 1319-1]\\
+Messen = Vergleichen
+\paragraph{Messgröße} ist ein messbares Merkmal eines Objektes oder Prozesses:
+\begin{itemize}
+\item Eigenschaft
+\item Vorgang
+\item Zustand
+\end{itemize}
+\subparagraph{Maßeinheit} eine durch Vereinbarung festgelegte Vergleichsgröße
+\subparagraph{SI-System} m,kg,s,A,K,mol,cd
+\subparagraph{Messwert} der gemessene Wert einer Messgröße: $\text{ZW} \cdot \text{Einheit}$
+\subparagraph{Messung} Quelle (Messgröße) $\rightarrow$ Erfassung der Größe $\rightarrow$ Vergleich der Größe mit einer Einheit $\rightarrow$ Anzeige (Messwert)
+\subparagraph{Normal [DIN 1390]} Maßverkörperung, Messgerät, Referenzmaterial oder Messeinrichtung zum Zweck, eine Einheit festzulegen, zu verkörpern, zu bewahren oder zu reproduzieren
+
+\subparagraph{Messprinzip} eine charakteristische naturwissenschaftliche Erscheinung oder ein gesetzmäßiger Zusammenhand, der einer Messung zugrunde gelegt wird.
+
+\subparagraph{Physikalische Grundlage der Messung}
+
+\subparagraph{über 100 physikalisch-chemisch-biologische Effekte}
+
+\subsection{Messmethoden}
+\subparagraph{Messmethode}  "`Spezielle, vom Messprinzip unabhängige Art des Vorgehens bei der Messung."' [DIN 1319-1]
+\begin{itemize}
+\item allgemeine Vorgehensweise bei der Durchführung von Messungen
+\item nicht an eine physikalische Realisierung gebunden
+\end{itemize}
+
+\subparagraph{statisch} Bestimmt wird eine zeitlich unveränderliche Messgröße nach einem Messprinzip, das nicht auf einer zeitlichen Änderung anderer Größen beruht
+
+\subparagraph{dynamisch} Messgröße ist entweder selbst zeitlich veränderlich oder ihr Wert ergibt sich aus zeitlichen Änderungen anderer Größen
+
+\subparagraph{direkte Messmethode} der Wert der Messgröße wird durch quantitativen Vergleich mit einer physikalischen gleichartigen Einheit ermittelt
+
+\subparagraph{indirekte Messmethode} der Messwert wird aus den Messdaten einer oder mehrerer anderer (direkt messbaren) Größen ermittelt, die mit der gesuchten Messgröße in einem definierten Zusammenhang steht (stehen)
+
+\subparagraph{inkrementale Messmethode} der Messwert wird von einem Bezugspunkt aus durch Addition oder Subtraktion von kleinen Wertzuwächsen (Inkrementen) ermittelt
+
+\subparagraph{Ausschlagmethode} Messgröße wird direkt oder über eine Zwischengröße (indirekt) in eine möglichst proportionale Ausgangsgröße umgewandelt.\\*
+Messgröße (M) $\Rightarrow$ Übertragungsfunktion (f) $\Rightarrow$ Ausgangsgröße (A).
+\[ M = f^{-1} (A)\]
+\begin{itemize}
+\item Pro:
+\begin{itemize}
+\item schnell
+\item einfach
+\item keine Hilfsenergie benötigt
+\end{itemize}
+\item Contra:
+\begin{itemize}
+\item Energieentzug aus dem Messobjekt, Rückwirkung!
+\item Kennlinie (Übertragungsfunktion) des Messgerätes muss bekannt sein
+\item starker Einfluss von Störgrößen
+\end{itemize}
+\end{itemize}
+
+\subparagraph{Kompensationsmethode} Messgerät nutzt eine bekannte variable Vergleichsgröße, um die Differenz zwischen beiden Größen gegen Null streben zu lassen. Messgröße (M), Normal(S) %TODO OPT 2014-10-15T13:26
+\[M=S\]
+\begin{itemize}
+\item Variable Art der Kompensationsgröße
+\item Reduzierung der Rückwirkung und Störeinflüsse
+\item Nichtlinearität unkritisch
+\item keine Kalibrierung notwendig
+\item leichte Realisierung großer Messbereiche
+\item hohe Genauigkeit möglich
+
+\item Größerer technischer Aufwand
+\item mehrstufig: in der Regel langsam
+\item Hilfsenergie notwendig
+\item Viele bekannte Vergleichsgrößen
+\end{itemize}
+
+\subparagraph{kontinuierliche Messmethode} die Messgröße wird ohne zeitliche Unterbrechung erfasst und auch angezeigt.
+
+\subparagraph{diskontinuierliche Messmethode} die Messgröße wird nur zu bestimmten (diskreten) Zeitpunkten erfasst (abgetastet) oder angezeigt
+
+\subparagraph{analoge Messmethode} die Messgröße wird durch eine eindeutige und stetige Anzeigegröße (Messwert) abgebildet. Kontinuierliche Wertebereich
+
+\subparagraph{digitale Messmethode} die Messgröße wird in Form einer in festgelegten Schritten quantisierten Anzeigegröße abgebildet.
+
+\subsection{Signale}
+\subparagraph{Signal} (in der Messtechnik): Wenn man einer speziell ausgewählten zeitlich veränderlichen physikalischen Größe (Signalträger) eine Information zuordnet.
+
+\subparagraph{Messsignal} Signal mit den Werten der Messgröße
+
+\subparagraph{Informationsparameter} ein oder mehrere zeitvariable informationstragende Parameter des Signals, die die Werte der Messgröße eindeutig und reproduzierbar abbildet.
+
+\[ \underbrace{u(t)}_{\text{Signalträger}} = \underbrace{\tilde{u}} \cdot \cos{\underbrace{\omega}_{\text{Informationsparameter}} t + \underbrace{\phi}) }\]
+
+\subsection{Informationsparameter}
+
+\begin{itemize}
+\item Impulshöhe
+\item Pulsbreite
+\item Pulsfolge
+\item Signalträgerwert
+\item Amplitude
+\item Frequenz
+\item Phase
+\end{itemize}
+
+\paragraph{Signaltypen nach Verfügbarkeit}
+\begin{itemize}
+\item Determiniertes Signal: Der Signalwert ist zu jedem Zeitpunkt verfügbar
+    \begin{itemize}
+    \item Information mit einmaliger Messung gewinnbar
+    \item Information kann durch Störung unbrauchbar werden
+    \end{itemize}
+\item Stochastisches Signal: regellos, zufällig, schwankender Signalverlauf
+    \begin{itemize}
+    \item Störungen machen sich nur stark reduziert bemerkbar, sie werden über die Messzeit integriert
+    \item Informationen ist erst mit mehrmaligen Messungen zu gewinnen, das erfordert einen großen Zeitbedarf
+    \end{itemize}
+\item Signalgemisch: deterministisches Signal mit einem stochastischen Anteil (Rauschen). Das Rauschen ist unerwünscht und muss unterdrückt oder ausgefiltert werden
+\end{itemize}
+
+\paragraph{Signaltypen nach Wertebereich}
+\begin{itemize}
+\item analoges Signal: kontinuierlicher Wertebereich
+    \begin{itemize}
+    \item der Informationsparameter bildet adäquat die Messgröße ab
+    \item kann theoretisch beliebig viele Werte innerhalb seines Wertebereiches annahmen
+    \item einfach zu stören
+    \end{itemize}
+\item diskretes Signal: diskontinuierlicher Wertebereich aus einer endlichen Anzahl von vordefinierten Werten
+    \begin{itemize}
+    \item Störeinflüsse machen sich erst nach Überschreiten von Grenzwerten bemerkbar
+    \item möglicher Informationsverlust
+    \end{itemize}
+\item binäres Signal: der Wertebereich hat nur zwei Werte
+\end{itemize}
+
+\paragraph{Signaltypen nach zeitlichen Verlauf}
+\begin{itemize}
+\item kontinuierliches Signal: IP kann zu jedem beliebigen Zeitpunkt seinen Wert ändern
+    \begin{itemize}
+    \item jederzeit vorhanden: jederzeit ist der zeitliche Verlauf von Messwerten verfolgbar
+    \item Störungen können jederzeit wirken
+    \item Informationsmenge ist oft unnötig groß
+    \end{itemize}
+\item diskontinuierliches Signal: IP kann nur zu diskreten Zeitpunkten seinen Wert ändern
+    \begin{itemize}
+    \item Störungen zwischen den Zeitpunkten der Parameteränderungen können sich nicht auswirken
+    \item Informationen stehen nur zu diskreten Zeitpunkten zur Verfügung (Informationsverlust)
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Signaltypen Kombinationen}
+\begin{itemize}
+\item Analogsignal
+\item Diskret-Kontinuierlich: $\Delta A$ \dots Amplituden-Quantisierungsintervall
+\item Analog-Diskontinuierlich: $\Delta t$ \dots Zeit-Quantisierungsintervall
+\item Digitalsignal
+\end{itemize}
+
+
+\paragraph{Normsignale}
+\begin{itemize}
+\item Strom analog
+\begin{itemize}
+\item $0 \dots 20$ mA (dead zero)
+\item $4 \dots 20$ mA (live zero)
+\end{itemize}
+\item Spannung analog
+    \begin{itemize}
+    \item 0 \dots 10 V (dead zero)
+    \item 2 \dots 10 V (live zero)
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Messeinrichtung} Gesamtheit aller zusammenhängenden Funktionseinheiten (Glieder), die zum Zweck der Messung, Messdatenverarbeitung, Anzeige von einer oder mehreren Messgrößen benutzt werden.
+\begin{itemize}
+\item Messgeräte
+\item Hilfsgeräte
+\item Maßverkörperungen
+\item chemische Reagenzien
+\end{itemize}
+
+\paragraph{Messanlage} dauerhaft installierte Messeinrichtung
+
+\paragraph{Messkette} Prozess(Messgröße - [Aufnehmer(Sensor)]) - Messignal - [Messumformer] - Normsignal - [Messgerät/Anzeige] - Ausgabe
+
+\begin{itemize}
+\item offene Wirkungskette: Messkette
+\end{itemize}
+
+\paragraph{Steuern} ein Vorgang in einem System, bei dem eine oder mehrere Größen als Eingangsgrößen (Führungsgrößen) andere Größen als Ausgangsgrößen aufgrund der dem System eigentümlichen Gesetzmäßigkeiten beeinflussen.
+\begin{itemize}
+\item Stellglied: beeinflusst unmittelbar die Steuergröße
+\item Steuerglied + Steller :erzeugt aus der Führungsgröße die Stellgröße
+\item Führungsglied: als starrer Befehlsgeber
+\end{itemize}
+
+\paragraph{Steuerkette} [Führungsglied] - Führungsgröße - [Steuerglied] - Stellsignal (Normsignal) - [Steller] - Stellgröße - [Stellglied (Aktor)] - Steuerstrecke - Prozess (Steuergröße)
+
+\begin{itemize}
+\item offene Steuerkette
+\item keine Rückmeldung
+\item dynamische Eigenschaften des Prozesses müssen genau bekannt sein
+\end{itemize}
+
+\subsection{Regeln}
+\paragraph{Regeln} ein Vorgang bei dem fortlaufend eine Größe (die zu regelnde Größe, die Regelgröße), erfasst, mit einer anderen Größe (er Führungsgröße) verglichen und im Sinne einer Angleichung an die Führungsgröße beeinflusst wird.
+\begin{enumerate}
+\item Messen: die Regelgröße wird direkt gemessen oder aus anderen Messgrößen berechnet
+\item Vergleichen: die Regelgröße wird mit der Führungsgröße verglichen und die Regelabweichung berechnet
+\item Regelglied + Steller: erzeigt die Steuergröße aus der Regelabweichung
+\end{enumerate}
+
+\paragraph{Regelkreis} geschlossener Regelkreis:
+Führungsgröße
+%TODO 2014-10-29T1357
+
+\paragraph{Steuerung}
+\begin{itemize}
+    \item offene Wirkungskette
+    \item Prozesseigenschaften (stat. + dyn.) müssen genau bekannt sein
+    \item kann auf Störungen nicht reagieren
+    \item kein Soll-Ist-Vergleich
+    \item keine Messung notwendig
+    \item Prozessstabilität wird nicht beeeinflusst
+\end{itemize}
+
+Sinnvoll wenn
+
+\begin{itemize}
+    \item die Auswirkungen von Störgrößen vernachlässigbar klein sind
+    \item nur eine Störgröße auftritt, die nach Art und Verlauf bekannt ist
+    \item Störgrößenänderungen selten sind
+\end{itemize}
+
+\paragraph{Regelung}
+\begin{itemize}
+    \item geschlossener Regelkreis
+    \item Prozesseigenschaften müsse nicht genau bekannt sein (Robustheit gegenüber Parameteränderungen)
+    \item kann Störungen ausregeln (Störkompensation)
+    \item Soll-Ist-Vergleich
+    \item Messung ist notwendig
+    \item Der geschlossene Regelkreis kann instabil werden
+\end{itemize}
+
+Sinnvoll wenn:
+
+\begin{itemize}
+    \item veränderliche, unbekannte, nach Art und Größe verschiedene, nicht messbare Störgrößen auftreten können
+\end{itemize}
+
+\section{Begriff Sensor}
+\paragraph{Sensor} das primäre Element in einer Messkette = Aufnehmer, Messwertaufnehmer, Messwertgeber, Transducer, Signalgeber, Fühler, Geber, Detektor, Zelle, Wandler, Initiator
+
+Messgröße - (intelligenter Sensor(integrierter Sensor (Sensorelement( [Aufnehmer]) - Messsignal - [Signalaufbereitung]) - Normsignal - [Signalverarbeitung und Auswertung]) - Ausgabe /Steuersignal
+
+Einteilung von Sensoren
+
+\begin{tabular}{l|c|c}
+ & In dt. Literatur & In engl. Literatur \\ \hline
+Selbstgenerierende Sensoren & Aktiv & Passiv\\
+Modulierende Sensoren & Passiv & Aktiv \\
+\end{tabular}
+
+Alternativ:
+\begin{itemize}
+    \item passive: Aufnehmen vorhandener Signale (z.B. Kamera Mikrofron)
+    \item aktive: Stimulieren der Umwelt und Aufnehmen der Antwort (z.B. Ultraschallsensor, Laserscanner, Radar)
+\end{itemize}
+
+Weitere Einteilung
+
+\begin{itemize}
+\item Einzelne Messgrößen
+\item Grad der Erfassung 
+    \begin{itemize}
+    \item erfassende Sensoren (Binärsensoren)
+    \item messende Sensoren (analog oder digital)
+    \end{itemize}
+\item Kontaktierende und Kontaktlose
+\item Absolute und relative
+\item Interne, Externe
+\item Einsatzgebiet
+\item Sensormaterialien
+\item Betriebseigenschaften
+\item Sondermerkmale
+\end{itemize}
+
+\subsection{Statische Eigenschaften von Sensoren}
+\paragraph{(statische) Transferfunktion} (Empfindlichkeitslinie, Kennlinie): Beziehung zwischen Eingangssignal $x$ und Ausgangssignal $y$, keine Funktion der Zeit
+\[ y= f(x) \]
+
+Ideale Kennlinie möglichst
+\begin{itemize}
+\item monoton
+\item eindeutig
+\item linear
+\end{itemize}
+
+Dezibel $G[db] = 20 \log{\frac{s_2}{s_1}}$
+
+\subparagraph{Auflösung} $\Delta x_{min} \Rightarrow \text{ fassbares } \Delta y$
+
+\subparagraph{Sensitivität} (Empfindlichkeit) $S= \frac{dy(x)}{dx} = f(x)$
+
+\subparagraph{Linearität}(Nichtlinearität) $\varepsilon_{max} = \frac{\Delta y_{max}}{FSO} \cdot 100 \% $ (FSO = Full Scale Output)
+
+\subparagraph{Ansprechschwelle} $x_{min}$ (Beidseitig: Totband)
+
+\subparagraph{Sättigung} $y=y_{max}$
+
+\subparagraph{Reproduzierbarkeit} $\delta_R = \frac{\Delta x_{max}}{FSI}$
+
+\subparagraph{Hysterese} $\delta_H = \frac{\Delta y(x)}{FSO}$
+
+\subsection{Selektivität,Stabilität}
+
+\subparagraph{Querempfindlichkeit}(Selektivität) Empfindlichkeit des Messwertes auf andere Größen. (Empfindlichkeitsänderung oder Nullpunktdrift)
+
+\begin{itemize}
+\item Rauschen
+\item Landzeitstabilität
+\item Lebensdauer
+\item Exemplarstreuung
+\end{itemize}
+
+\subsection{Dynamische Eigenschaften von Sensoren}
+\begin{itemize}
+\item zeitlich veränderlichen Messgrößen
+\item adäquat und verzögerungsfrei
+\end{itemize}
+
+
+Problem:
+\begin{itemize}
+\item Energiespeicher (Massen, Kapazitäten, dissipative Energieverluste \dots)
+\end{itemize}
+
+\subparagraph{Ansprechverhalten} Antwort eines Sensors auf ein zeitlich veränderliches Eingangssignal
+
+\subparagraph{Ordnung des Sensors} Anzahl vorhandener Energiespeicher (Ordnung der Differenzialgleichung)
+\begin{itemize}
+\item 0. Ordnung: keine Zeitabhängigkeit $I(t) = U_0 \cdot \sigma (t)$
+\item n. Ordnung
+\end{itemize}
+
+%2014-11-05T14:xx
+
+\subsection{Frequenzkenngrößen}
+\subparagraph{Frequenzkenngrößen} Antwort auf ein sinusförmiges Eingangssignal: $x(t) = x_0 \cos{(\omega t)}$
+
+stationärer (eingeschw.) Zustand: $\lim\limits_{t \to \infty} y (t) = \hat{y}_{st} \cdot cos{(\omega t + \varphi)}$
+
+Nicht alle spektralen Komponenten (Freq.) können amplituden und phasentreu übertragen werden.
+
+stationärer Amplitudengang (magnitude ratio) $ M = \frac{\hat{y}_{st} (\omega)}{\hat{y}_{st} (\omega \to 0 )}$
+
+stationärer Phasengang: $\varphi$
+
+Sensoren 0. Ordnung: amplituden und phasentreu ($M=1 , \varphi = 0$)
+
+\subparagraph{Frequenzgrößen von Sensoren 1. Ordnung} 
+\begin{itemize}
+\item Grenzfrequenz $\omega_0 : M = 0,707 \varphi = 45^\circ$
+
+$\frac{\omega}{\omega_G} << 1: M \approx 1, \varphi \approx 0$\\*
+$\frac{\omega}{\omega_G} >> 1: M \approx 0, \varphi \approx 90^\circ$
+
+
+\end{itemize}
+
+\subparagraph{Frequenz-KG von Sensoren 2. Ordnung}
+\begin{itemize}
+\item quasistatische Anregung $\omega << \omega_0, M \approx 1, \varphi \approx 0$
+\item Resonanz (bis $\delta = 0,71 \omega_0$)\\
+$\omega = \sqrt{\omega_0^2 - 2\delta^2}, \varphi = -90^\circ \; M \to M_{max}$
+
+\item hohe Anregerfrequenz $\omega >> \omega_0$\\
+$\varphi \to - 180^\circ \; M \to 0$
+\end{itemize}
+
+
+\subsection{Temperatursensoren}
+\begin{itemize}
+\item Gasthermometer 73-543 K
+\item Flussigkeitst. 203-360 K
+\item Farbstofft. 303-1873 K
+\item Pt100 53-1123 K
+\item Keramik NTC,PTC 193-523 K
+\item Thermoelemente 53-2773 K
+\item Si-Halbleiter 208 - 573K
+\item IR-Sensoren 223 - 3472 K
+\end{itemize}
+
+\begin{itemize}
+\item Kontaktthermometrie
+\item Pyrometrie
+\item Thermoresistive Sensoren
+\item Thermoelemente
+\item Halbleiterfühler verschiedner Art (Sperr oder Schwellspannung)
+\end{itemize}
+
+\subsubsection{Thermoresistiver Effekt}
+\[ TK_R = \frac{1}{R} \cdot \frac{dR}{dT} \]
+Themperaturkoeffizient des Widerstands
+
+Kaltleiter $TK > 0$ (PTC), Heißleiter $TK<0$ (NTC)
+
+\subsubsection{Pt-100}
+\begin{tabular}{l|l}
+Spezifikation & DIN EN 60571 \\ \hline
+Temperaturbereich (Dauerbetrieb) & $T_K = 3850 \, ppmK^{-1}$\\
+Langzeitstabilität & Max $R_\rho$ Drift $ 0,04 \%$ nach 1000h bei $50^\circ $ C \\
+Erschütterungsfestigkeit & Max 40g Beschl. bei 10 bis 2000 Hz\\
+Umgebungsvariablen & Ungeschützt nur im Trockenen\\
+Isolationswiderstand & $> 10 M \Omega$ bei $20^\circ$ C, $> 1 M \Omega$  bei $500^\circ$ C\\
+Selbsterwärmung & $0,2 \frac{K}{mW}$ bei $0^\circ$ C\\
+Ansprechszeit & Bewegtes Wasser $v=0,4 ms^{-1}, t_{0,5} = 0,3s, t_{0,9} = 0,8s$ Luftstrom $v=1\frac{m}{s} t_{0,5} = 3,0s , t_{0,9} = 9,0s$\\
+Messstrom & $100 \Omega, 0,1-0,3 mA$\\
+\end{tabular}
+
+Vorteile:
+\begin{itemize}
+\item für Präzesionsmessungen geeignet ($\pm 0,3 \%$)
+\item sehr gute Langzeitstabilität
+\item gute Linearität (bis $150^\circ$ C)
+\item Pt-Sensoren $-270 - +850^\circ C$
+\item mechn. sehr stabil Dünnfilmsensoren
+\item Ni-Sensoren: kostengünstige Dickschichtsensoren
+\end{itemize}
+
+Nachteile:
+\begin{itemize}
+\item kostenaufwendig
+\item wegen Gehäuse meist langsam
+\item Spannungsversorgung notwendig
+\item Ni-Sensoren $-60 - +180^\circ$ C
+\item keine punktförmige Messung
+\item Selbsterwärmung
+\end{itemize}
+
+\subsubsection{Temperatur IC}
+Diodengleichung $I = I_0 \cdot [ \exp{(\frac{eU}{k_bT} -1} ] $
+
+\subsubsection{Heißleiter (NTC)}
+\begin{itemize}
+\item Thermistoren
+\item + breites Spektrum an R
+\item großer TK
+\item - $-50^\circ C \dots + 100 ^\circ C (\pm 5\circ C)$
+\item Temperaturfühler
+\item Zeitverzögerungsglied
+\item Spannungsstabilisierung
+\end{itemize}
+
+\subsubsection{Thermoelemente}
+\begin{itemize}
+\item Messstelle \dots $T_2$, Metallenden \dots $T_1$.
+\item Seebeck-Effekt $U_{th} = \underbrace{\alpha_{th}}_{\text{Thermokraft}} \cdot \Delta T$
+\item linearisierte Thermospannung $\mu V K^{-1} [6,3;53]$
+
+\item Kabelthermoelemente (sehr schnell, aber ungeschützt, Meterware konfektionierbar)
+\item Mantelthermoelemente
+\item Isolierte Messstelle (TI) (galv. Trennung, lange Zeitkonstante)
+\item mit Mantel verbundene Messstelle (TM) (kürzere Zeitkonstante, galv. Verbindung)
+\item großer Temperaturbereich
+\item kleine Gesamtabmessungen
+\item große Flexibilität
+\item einfacher, robuster Aufbau
+\item unempfindlichsten gegen Hitze, Druck, Vibrationen
+\item kleine Elemente haben kleinste Ansprechzeiten
+\item erlauben kleinste, punktförmige Messstellen
+\item reduzierte Genauigkeit
+\item sehr kleine Thermospannungen
+\item Temperatur der Anschlussstelle muss bekannt sein
+\end{itemize}
+\subsubsection{Leitlinien für die Temperaturmessung}
+\begin{itemize}
+\item Messort
+\item Gehäuseeinfluss
+\item Ansprechzeit
+\item Eigenerwärmung
+\item Absolute Genauigkeit
+\item Für hohe Ansprüche an die Auflösung und Genauigkeit: Pt-Fühler
+\item Für kleinste Messstellen und schnelles Ansprechen: Thermoelemente 
+\end{itemize}
+Messprobleme wenn
+\begin{itemize}
+\item Dickes Gehäuse
+\item Große Entfernung zw. Objekt und Messstelle
+\item Objekte gerigner Masse (mit massiven Fühlern)
+\item T-Messung bei Luftströmungen
+\end{itemize}
+
+\subsubsection{Bimetallthermometer}
+\[f = \frac{L^2}{s} \cdot \delta \cdot \Delta T \]
+(L \dots Länge, s \dots Dicke, f \dots Abstand zur Ruhelage)
+
+\subsection{Druck als Messgröße}
+\subparagraph{Prinzipien der Druckmessung}
+\begin{itemize}
+\item Verformung unter Druck: magnetoelastische und Membransensoren
+\item Druckabhängigkeit physk. Eigenschaften, piezoelektr. Kristallsensoren
+
+Störeinflüsse
+\begin{itemize}
+\item mechanische Spannugen
+\item Temperatureffekte
+\end{itemize}
+\item piezoelektr. Aufnehmer 0 \dots 100 MPa
+\item kapazitive Aufnehmer 1 \dots 100 kPa
+\end{itemize}
+
+\subsubsection{Druckschalter}
+Druckbereich mbar \dots kbar, relativ große Hysterese
+
+\subparagraph{Kapazitiver Drucksensor}
+\begin{itemize}
+\item sehr empfindlich
+\item geringer Energieverbrauch
+\item gerine T-Abhängigkeit
+\item einfach,robust
+\item unempfnd. gegen Überdruck
+\item bes. für niedrige P
+\item gasartunabh.
+\item Genauigkeit 0,2 Ker .. 0,02 (Me) vom MEsswert
+\item lineare Kennlinie
+\item Kapazitätsänderung: Bruchteile von pF
+\item Streukapazitäten
+\item relativ komplexe Elektronik
+
+\end{itemize}
+
+\subsubsection{DMS} $R = \rho \frac{l}{A}  = k \cdot \frac{\Delta l}{l}$
+
+\subsubsection{Piezoresistive Metall-Membran-Drucksensoren}
+\begin{itemize}
+\item höchste Genauigkeit $0,2 \dots 0,3 \%$, sehr kleine Hysterese $< 0,05 \% FSO$
+\item hervorragende Temperaturstabilität
+\item eine hervorragende Überdrucksicherheit
+\item sehr hohe Medienverträglichkeiten
+\item extrem robuste Gehäuseausführungen möglich
+\item direkter Kontakt mit dem Druckmedium
+\item gute Langzeitstabilität, Korrosionsbeständigkeit
+\item für Drücke $< 5 bar$ nicht geeignet
+\item für $T > 140^\circ C$ nicht geeignet 
+\item aufwendige Fertigung 
+\item seht teuer (hoher Fertigungsaufwand)
+\item geringe el. Durchschlagsfestigkeit
+\item anfällig für el.magn. Störeinkopplung
+\item Miniaturisierung eingeschränkt
+\item Präzisions-Druckmessungen besonders im Hochdruckbereich
+\end{itemize}
+
+\subsubsection{Silizium-Membran-Drucksensoren} 
+\begin{itemize}
+\item Ideal für niedrige Druckbereiche
+\item gutes Preis-Leistungsverhältnis
+\item vergleichsweise kleine Abmessungen
+\item Integration mit der Signalverarbeitungselektronik
+\item hoher K-Faktor
+\item keine Kriecheffekte
+\item keine Isolierschicht
+\item hohe Ausgangssignale
+\item hohe Eigenfrequenz
+\item hohe T-Abhängigkeit
+\item großer Aufwand für Linearisierung und T-Kompensation
+\item empfindlich gegen äußerere Einflüsse
+\item geringere Genauigkeit gegen äußeren Einflüsse
+\item geringere Genauigkeit als Metall-DMS
+\item Einsatz nur bis max $125^\circ C$
+\item Hysterese $0,15 \% $ FSO
+\item keine hohen Genauigkeitsansprüche
+\item insbesondere im Niederdruckbereich
+\item Haushalt (keine T-Schwankungen)
+\end{itemize}
+
+\subsubsection{Piezoelektrische Effekte}
+$Q = \underbrace{d}_{\text{piezoelektr. Koeff}} \cdot F$
+\begin{itemize}
+
+\subsubsection{Piezoelektrische Drucksensoren}
+\item nahezu weglose Kraftaufnehmer (nur wenige $\mu m$)
+\item hoher Wirkungsgrad
+\item einfacher mechn. Aufbau
+\item sehr großer Messbereich (0 \dots 100 MPa)
+\item hohe Linearität des piezoelektr. Effektes
+\item Auflösung $< 10^{-7}$ FSI, Genauigkeit 1 \%
+\item großer dynam. Messbereich $f > 100 kHz$
+\item kleine Bauweise
+\item Betriebstemp-Bereich $-196 \dots +240^\circ C$
+\item Kriechströme
+\item statische Messungen nur begrenzt möglich
+\end{itemize}
+
+\subsubsection{Schwebekörper Durchflussmesser}
+Die Steighöhe des Schwebekörpers ist ein Maß für die Strömungsgeschwindigkeit. Genauigkeit $2 \%$
+$F_g = mg$
+$F_A = pV$
+$F_S \sim \frac{q_v}{h}$
+
+\subsubsection{Differenzdruckverfahren Wirkdruckverfahren}
+$q_v \sim \sqrt{p_1 - p_2}$
+Für reine Flüssigkeiten und Gase
+Messgenauigkeit $<1 \% $ v.E
+\begin{itemize}
+\item am meisten angewandtes Verfahren
+\item International genormt, keine Kalibrierung erforderlich
+\item einfach, robust, wartungsarm
+\item Geeignet für extreme Bed.
+\item empfindlich für Verschmutzung des Messmediums (Erosion)
+\item Nicht-linear
+\item Nur in voll gefüllten Rohren $D > 50$ mm anwendbar
+\item Hoher Druckverlust (Blende $35-90 \% $, Düse $6-25 \% $ des Wirkdruckes)
+\item Fehler durch Verschleiß der Blenden
+\item große Ein- und Auslaufstrecken erforderlich
+\end{itemize}
+
+\subsubsection{Staudruckverfahren}
+$p_{ges} = p_{stat} + \Delta p, v= \sqrt{\frac{2}{p} \cdot \Delta p}, q_v = A \cdot v$
+\begin{itemize}
+\item überwiegend in Gases
+\item Messgenauigkeit $( \pm 3) \pm 1 \%$ v.S.
+\item Punktförmige Messung
+\item geringe Druckverluste
+\item keine mechn. Teile
+\item quadrat. Zusammenhang $v^2 \sim \Delta p$
+\item Durchfluss ergibt sich durch Abtasten der Geschwindigkeitsverteilung über Querschnitt und anschließende Integration
+\end{itemize}
+
+\subsubsection{Karmannsche Wirbelstraße}
+Wirbelablösefrequenz $f \sim \frac{v}{d}$
+\begin{itemize}
+\item Medien: Gase, Dämpfe oder niedrigviskose Flüssigkeiten
+\item Messgenauigkeit $\approx 1 \% $ v.M.
+\item Fehlerquellen: Schwingungen des Messrohres und Pulsationen des Mediums
+\item hohe Genauigkeit
+\item hohe Langzeitstablität
+\item robust wartungsarm
+\item Unempfindlich gegen Verschmutzung
+\item linearer Zusammenhang $v \sim f$
+\item beliebige Einbaulage
+\item großer Dynamikbereich
+\item für kleine Durchflussgeschw. nicht geeignet
+\item relativ hohe verbleibende Druckverluste
+\item große Ein- und Auslaufstrecken und ggf. Strömungsgleichrichter nötig
+\end{itemize}
+
+\subsubsection{Magnetisch Induktives Verfahren}
+$\vec{F_L} = q \cdot \vec{v} \times \vec{B}$\\
+$U = B \cdot d \cdot v$
+\begin{itemize}
+\item Medien: insbesondere wässrige Lösungen
+\item Messgenauigkeit: $\pm 0,2 - 1 \% $ v.S.
+\item unabhängig von Dichte, T, p, Viskosität des Mediums
+\item unabhängig von Art der Strömung (laminar,turbulent) und vom Strömungsprofil
+\item berührungslos
+\item linearer Zusammenhang zwischen Volumendurchfluss und Spannung
+\item keine mechn. Teile
+\item keine Rohreinbauten notwendig
+\item geeignet für korrosive, aggressive und verschmutze Medien
+\item kurze Ein- und Auslaufstrecken
+\item Eignung für kleinste bis mittlere Mengen
+\item Nur für leitende Flüssigkeiten $> 1 \mu S cm^{-1}$ für Gase nicht geeignet
+\item Ablagerungen im Messrohr führen durch die Querschnittsverkleinerungen zu Messfehlern
+\item es dürfen sich keine elektrisch leitenden Ablagerungen bilden
+\item Mit der Nennweite überproportional steigende Herstellkosten
+\item relativ kleine Messsignale (im mV Bereich und niedriger)
+\item Die Elektroden sollten aus korrosionsfesten Material bestehen
+\end{itemize}
+
+\subsubsection{Ultraschall-Durchflussmessung 1} $v\approx \frac{c^2 \cdot \Delta t}{2L \cdot \cos{\varphi}}$ 
+Außerdem Reflexionsverfahren und Doppler-Verfahren ($\Delta f = 2 f_0 \cdot \cos{\varphi}\; \frac{v}{c}$)
+
+\begin{enumerate}
+\item Messgenauigkeit $\pm 0,5 - 3 \%$ (Doppler schlechter)
+\item Medien: reine Flüssigkeiten und Gase (für Doppler: Streuzentren notwendig)
+\item Vorteile
+    \begin{enumerate}
+    \item keine Einbauten in der Rohrleitung (keine Querschnittsverengung)
+    \item Messungen über mehrere Meter Distanz möglich
+    \end{enumerate}
+\item linearer Messeffekt
+\item Einsatz auch bei nichtleitenden und verschmutzten Fluiden (Doppler)
+\item Clamp-On Verfahren möglich
+\item Nachteile
+    \begin{enumerate}
+    \item gut ausgebildete Strömungsprofile notwendig
+    \item die Flüssigkeit muss frei von größeren Störkörpern sein
+    \item die Laufzeitdifferenz ist Stoff- und Temperaturabhängig
+    \item Schall schluckende und reflektierende Ablagerungen sind zu vermeiden
+    \item relativ großer messtechnischer Aufwand
+    \item Beschränkung der Nennweitenpalette nach unten
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection{Korrleationsdurchflussmessung 2}
+\begin{enumerate}
+\item Fluideigenschaften : Mehrphasenströmungen, reine Fluide
+\item Messgenauigkeit: Abhängig von der Aufgabenstellung
+\end{enumerate}
+
+\subsubsection{Hitzdraht-Anemometer 1}
+\begin{enumerate}
+\item Kalorimetrie Messung von Wärmemengen
+\item Hitzdraht-Anemometrie
+\item Aufheiz-Anemometrie
+\item Hitzdraht-Anemometrie
+Messung des geschwindigkeitsabh. Wärmeabgabe eines beheizten Sensors an ein vorbeifließenden, kälteres Fluid
+\[ q_m = \frac{m}{t} = A \left [ \frac{R I_0^2}{a (T_s - T_n)} - \frac{b}{a} \right ]^2\]
+\item konstanter Heizstrom CC (langsam) $I = const, \; R=R(v)$
+\item konstante Hitzdrahttemperatur CT (schneller): $R= const \; I = I(v)$
+\end{enumerate}
+
+\subsubsection{Hitzdraht-Anemometer 2}
+\begin{enumerate}
+\item Fluideigenschaften: hauptsächlich Gase
+\item Messgenauigkeit: $(\pm 2) \pm 1 \%$ v.S.
+\item Vorteile
+    \begin{enumerate}
+    \item empfindlich, bes. geeignet für kleine und mittlere Strömungsgeschw.
+    \item geringe Abmessung des Heizdrahtes, kleine Einstellzeit
+    \item rel. geringe Heizleistung erforderlich
+    \item wenige Druckverluste an der Messstelle
+    \item direkte elektr. Anzeige des Messwertes
+    \item sowhl im lam. und turb. Strömungen (Kalibrierung notwendig)
+    \end{enumerate}
+\item Nachteile
+    \begin{enumerate}
+    \item abnehmende Empfindlichkeit mit wachsender Geschwindigkeit
+    \item Messung bei kleinen Durchflüssen wegen Eigenkonvektion nicht möglich
+    \item Eichung jedes einzelnen Drahtes notwendig
+    \item Alterung infolge von temperaturabedingten Strukturänderungen
+    \item abhängig vom Medium und Strömungsart
+    \end{enumerate}
+
+\end{enumerate}
+
+\subsubsection{Aufheiz-Anemometer} Messung der Erwärmung des messenden Fluids durch Wärmestromzufuhr aus einer Heizwicklung
+\[ q_m = f (\Delta T)\]
+\begin{enumerate}
+\item hohe Heizleistungen erforderlich
+\item linearer Messeffekt
+\item unabhängig von Dichte des Mediums
+\item abhängig von spezf. Wärme
+\item Genauigkeit $\leq 1 \% v.E.$
+\item Einstellzeit von Null bis $\pm 2 \%$ v.S.
+\end{enumerate}
+
+\subsubsection{Coriolis-Durchflussmessung}
+\[ \vec{F}_C = 2m \cdot (\vec{v} \times \vec{\omega})\]
+\[ q_m \sim \varphi \]
+
+\subsubsection{Coriolis-Durchflussmesser 2}
+\begin{enumerate}
+\item Fluideigenschaften Flüssigkeiten und Gase bei höheren Drücken (> 5 bar)
+\item Breite und ähnlich hochviskose Fluide, homogene Mehrphasengemische
+\item pneumatisch förderbare Schüttgüter
+\item Messgenauigkeit: $\pm 0,2 - 0,3 \%$ v.S. für Flüssigkeiten und Gase, $\pm 1 \%$ v.S. für pneumatisch förderbare Schüttgüter
+\item Vorteile
+    \begin{enumerate}
+    \item Eine direkte Bestimmung des Massenstroms
+    \item fast unabhängig von Druck, T, Dichte, Viskosität des Mediums
+    \item Resonanzfrequenz $\sim$ Dichte des Mediums
+    \item Können auch bei Kleinstmengen, bei Kurzzeitdosierung, pulsierender Strömung, hohen und niedrigen Temperaturen, bei nicht vollständig befüllten Rohren und hohen Drücken eingesetzt werden
+    \end{enumerate}
+\item Nachteile
+    \begin{enumerate}
+    \item hohe Druckverluste
+    \item Schwingungsentkooplung der Messanlage erforderlich
+    \item empfindlich für Druckschwankungen
+    \item verklebende Schuttgüter können das Messergebnis verfläschen
+    \item unsicher bei niedrigen Strömungsgeschwindigkeiten von Gases
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection{Binäre Positionssensoren}
+Binäre Sensoren: nur zwei Ausgangssignale, (Schaltzustände) Ein/Aus
+
+Taktile Sensoren (Taster): mit mechanischen Kontakt mit dem zu detektierenden Objekt
+
+Näherungsschalter (Initiatoren)
+
+Grenztaster nicht berührungslos, Rest schon
+
+Näherungsschalter (gegen Taster)
+\begin{itemize}
+\item berührungslos
+\item rückwirkugnsfrei
+\item verschleißfrei
+\item erzeugen prellfreie Ausgangssignale
+\item z.T. über große Entfernungen
+\item Lebensdauer größer als bei Taster
+\item Hilfsenergie notwendig
+\item Fehlschaltungen durch Fremdfelder und Verschmutzung
+\item z.T. wesentlich teurer als Taster
+\end{itemize}
+
+\subsubsection{Vor und Nachteile von Grenztastern}
+\begin{itemize}
+\item Preisgünstig
+\item Robust und sicher
+\item klein in den Abmessungen
+\item keine Hilfsenergie notwendig
+\item Verwendbarkeit bis 600 V
+\item unbeeinflussbar durch Fremdfelder
+\item sehr hohe Genauigkeit und Wiederholungsgenauigkeit des Schaltpunktes (typisch $\pm 10 \mu m$) auch bei low-cost Typen
+\item für kleinste und größte Schaltleistungen erhältlich
+\item Absolut zuverlässige (hundertprozentige) galvanische Trennung
+\item eine mechan. Berührung ist notwendig (Schaltkraft, Eingriff in Prozess)
+\item spez. mech. Vorrichtungen notwendig
+\item Konakte prellen
+\item hohe Anfälligkeit gegen Verschmutzung und Verschleiß
+\item nur niedrige Schaltfrequenzen realisierbar
+\item Schaltpunktdrift
+\item Übergangswiderstände an den Kontakten
+
+\end{itemize}
+
+
+\subsubsection{Reed-Kontakte}
+\begin{itemize}
+\item berührungslos schaltend
+\item höhere Schaltfrequenz als bei mechn. Schaltern
+\item vermindertes Kontaktprellen gegenüber mechn. Schaltern
+\item hohe Schutzart durch geschlossenen Glaskörper
+\item hohe Einschaltströme möglich
+\item niedriger Preis
+\item magnetische Feldstärke höher als bei magnetischen Sensoren
+\item Verschleiß der Kontakte
+\item Schaltpunktdrift durch Materialermüdung
+\item geringe Wiederholgenauigkeit des Schaltpunktes
+\item Übergangswiderstände an den Kontakten
+\item Anzahl der Schaltspiele ist begrenzt
+\item mehr als ein Schaltpunkt
+
+\end{itemize}
+
+\subsubsection{Wirbelstrom}
+Faradysches Induktionsgesetz \[ U_{ind} = - \frac{d \vec{\Phi}}{dt}\]
+
+Messprinzip: Sensor erzeugt magnetisches Streufeld, kommt elektrisch leitender Stoff ins Streufeld, werden Wirbelströme induziert. Dadurch Wirbelstromverluste ähnlich Transformator, Triggerung.
+
+\subsubsection{Vor und Nachteile induktiver Sensoren}
+\begin{itemize}
+\item weite Verbreitung in der Automatisierungs und Verfahrenstechnik
+\item berührungslos und rückwirkungsfrei
+\item wegen geschl Bauform resistent gegen Umwelteinflüsse
+\item hohe Zuverlässigkeit
+\item keinen Einfluss nichtmetallischer Verschmutzung
+\item kein Kontaktprellen und Verschleiß
+\item hohe Schaltfrequenz (bis 5 kHz)
+\item keine Rückwirkungen auf die Werkstoffoberfläche
+\item dem Abstand propoprtionales Analogsignal möglich
+\item preisgünstiger als optische Sensoren
+\item sehr hohe Messgenauigkeit möglich $< 0,01 mm$
+\item es lassen sich nur leitende Materialien detektieren
+\item nur kurzreichweitig Faustformel Objektdisdanz gleich halber Sensordurchmesser (Spulendurchmesser)
+\item gegenseitige Beeinflussung (Abstand einhaltne)
+\end{itemize}
+
+\subsection{Kapazität (Streufeldsensoren)}
+\[ C = \varepsilon_0 \varepsilon_r \frac{A}{d} \]
+\begin{tabular}{l|c}
+Material & $\varepsilon_r$ \\ \hline
+Papier & 1,2\dots3\\
+PVC & 3\\
+Glas & 3\dots 5 \\
+Alkohol & 6x \\
+Wasser & 8x \\
+\end{tabular}
+
+\subsubsection{Nennschaltabstand}
+\begin{itemize}
+\item Bauform des Sensors
+\item äußere Bedingungen
+\item Form, Abmessung und Materialeigenschaft des zu erfassenden Objekts
+\item Normmessplatte: Metall $a,b > D$ oder $3S_n$
+\item Störfaktoren:
+\item Fremde Objekte
+\item Oberflächenbeschaffenheit
+\item Feuchtigkeit, Spritzwasser
+\item Staub, Verschmutzung
+\item elektrische Wechselfelder
+\item Temperatur
+\end{itemize}
+
+\subsubsection{Vor- und Nachteile kapazitive Sensoren}
+\begin{itemize}
+\item erfasst praktisch alle Materialien
+\item hohe Zuverlässigkeit, keine beweglichen Teile
+\item Schaltfrequenzen 5\dots 50 Hz (kleiner als bei indirekten aber größer als bei mechn. Sensoren)
+\item völlig berührungslos und rückwirkungsfrei
+\item Kontakt mit Medium nicht erforderlich
+\item berührungslose Erfassung selbst durch Wände oder PTFE Schutzhüllen
+\item teurer als induktive Sensoren
+\item kurzreichweitig (aber größer als bei induktiven)
+\item Streukapazität ist zu klein : gewisse Sensorfläche notwendig
+\item nicht so klein die induktive (min. Fläche $1 cm^2$)
+\item anfälliger gegen Störungen
+\item wird von allen Objekten im Streufeld beeinflusst
+\item Reproduzierbarkeit schlechter als bei induktiven Sensoren
+\item Gegenseitige Beeinflussung
+\end{itemize}
+
+\subsection{Lichtschranken}
+\begin{itemize}
+\item Messprinzip: Lichtstrahl wird unterbrochen
+\item Erfasst wird Lichtmenge auf dem Empfänger
+\item Einweglichtschranke: 10m \dots 100 m
+\item Reflexions-Lichtschranke bis 4m
+\item Reflexions-Lichttaster
+\item Funktionsreserve: $\frac{\text{Lichtintensität auf Empfänger}}{\text{Schaltschwellwert}}$
+\end{itemize}
+\subsubsection{Vor- und Nachteile Einweg-LS}
+\begin{itemize}
+\item große Wegstrecken
+\item große Funktionsreserve (Sicherheit)
+\item unkritisch zu spiegelnden Oberflächen
+\item unkritisch zu Verschmutzung der Linsen
+\item sicheres Erkennen von undurchsichtigen Gegenständen
+\item weitgehend unempfindlich gegen Fremdlich, sofern es nicht direkt in den Empfänger leuchtet
+\item hoher Preis (zwei Geräte mit Linsensystem und Elektronik)
+\item teuere Installation von zwei getrennten Geräten
+\item aufwändige Justierung bei größeren Überwachungsstrecken
+\item unsicheres Erkennen von transparenten Gegenständen
+\end{itemize}
+
+\subsubsection{Reflexlichtschranke}
+\begin{itemize}
+\item Reflexlichtschranke
+    \begin{itemize}
+    \item Doppellinsensystem
+    \item Autokollimator (Halbdurchlässiger Spiegel)
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Vor- und Nachteile Reflexlichtschranke}
+\begin{itemize}
+\item nur ein kompaktes Gerät ist für Sender und Empfänger
+\item einfache Montage
+\item sicheres Erkennen von undurchsichtigen Gegenständen und spiegelenden Objekten
+\item Blindbereich
+\item mittlere Reichweite, da doppelter Strahlenweg
+\item unsicheres Erkennen von transparenten Gegenständen
+\item Die Funktionsreserve ist klein
+\item Verschmutzung ist sehr kritisch
+\item Witterungseinflüsse wie Schnee, Nebel und Eisbesatz an den Linsen täuschen unter ungünstigen Bedingungen ein Objekt vor
+\end{itemize}
+
+\subsubsection{Reflex-LT nach Winkellichtverfahren (Nahbereichstaster)}
+\begin{itemize}
+\item keine Störungen durch hochreflektierende Gegenstände im Hintergrund
+\item Empfänger ist werksseitig fest auf eine bestimmte Tastweite eingestellt
+\item Die Tastweite beträgt nur 20 bis 30 \% des baugleichen Reflexlichttasters
+\item Die Tastweite ist stark von der Oberflächenstruktur und Farbe abhängig
+\end{itemize}
+
+\subsubsection{Reflex-LT Vor-Nachteile}
+\begin{itemize}
+\item direktes Abtasten von Gegenständen
+\item einfache Montage
+\item Das Erkennen von transparenten Gegenständen ist besser als bei der Einweg oder Reflex-LS
+\item Bei LT mit Hintergrundausblendung ist eine Abstandsmessung möglich
+\item geringe Tastweiten im Vergleich zu den Reichweiten der Lichtschranken. Bei gleichen Gehäuse verhalten sich die Tastweiten bei der Einweg-LS, Reflexions-LS und Reflexions-LT wie 20:5:1
+\item Störungen durch den Hintergrund (Spiegel, Metall, weiß)
+\item Hintergrundausblendung mit noch geringeren Tastweiten möglich
+\item keine präzisen Schaltpunkte. Die Tastweite ist abhängig von den Relfexionseigenschaften des zu zuerfassenden Objekts und der Verschmutzung der Linsen
+\end{itemize}
+
+\subsubsection{Rot gegen Infrarot}
+Infrarotlicht:
+\begin{itemize}
+\item Sendedioden haben einen höheren Wirkungsgrad und sind billiger
+\item maximale Empfindlichkeit von Si-Photodioden und Photortransistoren
+\item IR-Optik ist weniger für kleine Staubteilchen empfindlich
+\item Geräte sind unendpfindlicher gegen Fremdlichstörungen
+\item IR-Lichtfleck ist nicht sichtbar, was die Montage und Justage schwieriger macht
+\end{itemize}
+Rotlicht:
+\begin{itemize}
+\item Polfilter für Rotlicht sind besser und preiswerter
+\item Dämpfung in Lichtleitern ist geringer
+\item Lichtfleck ist sichtbar, die Montage und Justage sind wesentlich einfacher
+\item Störende Wirkung des Tageslichts
+\item kleinere Abstrahlleistung als bei Infrarot-LED
+\end{itemize}
+
+\subsubsection{Korrekturfaktoren}
+\begin{tabular}{l|c}
+Umgebung & Umgebungsfaktor Cfa\\ \hline 
+staubfrei & 1,5\\
+leicht staubig oder ölig, Linsen periodisch gereinigt & 5\\
+ziemlich staubig,ölig Linsen nur spärlich ger. & 10\\
+\end{tabular}
+
+\subsection{Lichtleiter: Vor- Nachteile}
+\begin{itemize}
+\item unempfindlich gegen Stoßbelastung und Vibrationen
+\item lassen sich auch bei äußerst beengten Platzverhältnissen einsetzen
+\item reagieren überhaupt nicht magnetische Störfelder
+\item Glas LL: unempfindlich für hohe Temperaturen bis $250^\circ C$
+\item stark divergierende Strahlen, geringe Reich- Tastweiten
+    \begin{itemize}
+    \item Taster: bis 13 cm
+    \item Einweg: bis 32 cm
+    \item mit Vorsatzlinsen: bis zu x5 größere Reichweiten
+    \end{itemize}
+\item Kunstoff LL
+    \begin{itemize}
+    \item $-25^\circ C \dots 80^\circ C$ anwendbar
+    \item nicht für IR
+    \item höhere Dämpfung
+    \item elektrisch aufladbar
+    \end{itemize}
+\end{itemize}
+
+\end{document}
